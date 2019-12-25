@@ -19,7 +19,7 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\"https://hacker-news.firebaseio.com/v0\""
+            buildConfigField "String", "BASE_URL", "\"https://hacker-news.firebaseio.com/v0/\""
         }
         release {
             minifyEnabled false

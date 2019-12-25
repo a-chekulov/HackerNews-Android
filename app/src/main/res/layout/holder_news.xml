@@ -3,14 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/tv_title_news"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Новость#127798"
-        android:textSize="32sp"
-        android:textColor="@android:color/black"/>
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/gray_700"
+        android:layout_marginBottom="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_scope"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_thumb_up"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Score"
+            android:layout_gravity="start"
+            android:layout_toEndOf="@id/iv_scope"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="12:30"
+            android:layout_gravity="end"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
 </LinearLayout>

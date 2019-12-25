@@ -1,9 +1,10 @@
 package com.achek.hackernews.di.news
 
-import com.achek.hackernews.presentation.view.newslist.NewsListFragment
+import com.achek.hackernews.di.AssistedInjectModule
+import com.achek.hackernews.presentation.presenter.newslist.NewsListPresenter
 import dagger.Subcomponent
 
-@Subcomponent(modules = [NewsModule::class])
+@Subcomponent(modules = [NewsModule::class, AssistedInjectModule::class])
 interface NewsComponent {
-    fun inject(fragment: NewsListFragment)
+    val newsListPresenterFactory: NewsListPresenter.Factory
 }
