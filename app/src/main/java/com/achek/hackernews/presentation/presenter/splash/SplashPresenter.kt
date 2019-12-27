@@ -26,7 +26,7 @@ class SplashPresenter @AssistedInject constructor(
         disposables += interactor.showingSplash()
             .observeOn(provider.ui())
             .subscribe {
-                cicerone.router.navigateTo(NewsListScreen())
+                cicerone.router.newRootScreen(NewsListScreen())
             }
     }
 
