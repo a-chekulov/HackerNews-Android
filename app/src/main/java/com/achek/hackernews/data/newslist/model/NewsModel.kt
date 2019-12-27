@@ -15,7 +15,7 @@ data class NewsModel (
     val id: Int,
     @SerializedName("kids")
     @Expose
-    val kids: List<Int>,
+    val kids: List<Int>?,
     @SerializedName("score")
     @Expose
     val score: Int,
