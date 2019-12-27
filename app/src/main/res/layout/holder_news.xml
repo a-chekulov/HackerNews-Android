@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
+
 
     <TextView
         android:id="@+id/tv_title_news"
@@ -14,11 +14,15 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@color/gray_700"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <ImageView
             android:id="@+id/iv_scope"
@@ -39,15 +43,59 @@
             android:textColor="@color/colorPrimary"
             android:layout_centerVertical="true"/>
 
-        <TextView
-            android:id="@+id/tv_time"
+        <ImageView
+            android:id="@+id/iv_comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="12:30"
-            android:layout_gravity="end"
-            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_comment"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/tv_score"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tv_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/count_default"
+            android:layout_gravity="start"
+            android:layout_toEndOf="@id/iv_comments"
             android:textColor="@color/colorPrimary"
             android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_500"
+                tools:text="Mr. Author"
+                android:layout_gravity="end">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="27 Dec 2019, 12:30"
+                android:layout_gravity="end"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+
+
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_300"
+        android:layout_marginTop="8dp"/>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.achek.hackernews.presentation.presenter.newslist
 
 import com.achek.hackernews.data.common.SchedulersProvider
+import com.achek.hackernews.data.newslist.NewsRepo
 import com.achek.hackernews.domain.newslist.NewsListInteractor
 import com.achek.hackernews.presentation.view.newslist.NewsListView
 import com.achek.hackernews.utils.plusAssign
@@ -21,6 +22,7 @@ class NewsListPresenter @AssistedInject constructor(
 
     private val disposables = CompositeDisposable()
     private var page: Int = -1
+    private var items: Int = 0
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -40,8 +42,10 @@ class NewsListPresenter @AssistedInject constructor(
             .observeOn(provider.ui())
             .subscribe({
                 viewState.addNews(it)
+                items++
+                if (items == NewsRepo.PAGE_SIZE * (page + 1)) viewState.showProgress(false)
             }, {
-                viewState.showMessage(it.toString())
+                items++
             })
     }
 

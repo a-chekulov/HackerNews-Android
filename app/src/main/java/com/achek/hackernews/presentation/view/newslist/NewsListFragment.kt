@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -28,6 +29,7 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
     private lateinit var toolbar: Toolbar
     private lateinit var adapter: NewsAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var progress: ProgressBar
     private  var page = 1
 
     @Inject
@@ -57,6 +59,8 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
         toolbar.title = getString(R.string.recent_news)
         toolbar.setTitleTextColor(ContextCompat.getColor(activity!!, android.R.color.white))
 
+        progress = view.findViewById(R.id.progress)
+
         adapter = NewsAdapter {
             try {
                 val i = Intent(Intent.ACTION_VIEW)
@@ -76,11 +80,11 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy > 0) {
                     val pos = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                    if (pos == (NewsRepo.PAGE_SIZE - 1) * page) {
+                    if (pos == (NewsRepo.PAGE_SIZE) * page - 1) {
                         page++
+                        showProgress(true)
                         presenter.loadNews()
                     }
-
                 }
             }
         })
@@ -97,5 +101,10 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
 
     override fun addNews(newsModel: NewsModel) {
         adapter.addItem(newsModel)
+    }
+
+    override fun showProgress(showing: Boolean) {
+        if (showing) progress.visibility = View.VISIBLE
+        else progress.visibility = View.GONE
     }
 }

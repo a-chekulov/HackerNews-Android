@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HackerNews</string>
     <string name="recent_news">Recent News</string>
+
+    <string name="author_prefix">by </string>
+    <string name="count_default">0</string>
 </resources>
