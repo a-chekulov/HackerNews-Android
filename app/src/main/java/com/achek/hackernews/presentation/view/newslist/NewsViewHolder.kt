@@ -14,7 +14,7 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val title = itemView.findViewById<TextView>(R.id.tv_title_news)
     private val score = itemView.findViewById<TextView>(R.id.tv_score)
     private val time = itemView.findViewById<TextView>(R.id.tv_time)
-    private val author = itemView.findViewById<TextView>(R.id.author)
+    private val author = itemView.findViewById<TextView>(R.id.tv_author)
     private val comments = itemView.findViewById<TextView>(R.id.tv_comments)
 
     private val authorPrefix = itemView.context.getString(R.string.author_prefix)
@@ -29,7 +29,5 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         newsModel.kids?.let {
             comments.text = newsModel.kids.size.toString()
         }
-
-
     }
 }

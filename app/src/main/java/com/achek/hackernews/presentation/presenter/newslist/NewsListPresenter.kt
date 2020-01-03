@@ -3,6 +3,7 @@ package com.achek.hackernews.presentation.presenter.newslist
 import com.achek.hackernews.data.common.SchedulersProvider
 import com.achek.hackernews.data.newslist.NewsRepo
 import com.achek.hackernews.domain.newslist.NewsListInteractor
+import com.achek.hackernews.presentation.view.news.NewsScreen
 import com.achek.hackernews.presentation.view.newslist.NewsListView
 import com.achek.hackernews.utils.plusAssign
 import com.arellomobile.mvp.InjectViewState
@@ -47,6 +48,10 @@ class NewsListPresenter @AssistedInject constructor(
             }, {
                 items++
             })
+    }
+
+    fun showNews(id: Int){
+        cicerone.router.navigateTo(NewsScreen(id))
     }
 
     @AssistedInject.Factory

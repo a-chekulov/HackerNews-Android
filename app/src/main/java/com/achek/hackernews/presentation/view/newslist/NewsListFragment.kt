@@ -1,7 +1,5 @@
 package com.achek.hackernews.presentation.view.newslist
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -61,16 +59,7 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
 
         progress = view.findViewById(R.id.progress)
 
-        adapter = NewsAdapter {
-            try {
-                val i = Intent(Intent.ACTION_VIEW)
-                i.data = Uri.parse(it.url)
-                startActivity(i)
-            } catch (ex: NullPointerException) {
-                showMessage(ex.toString())
-            }
-
-        }
+        adapter = NewsAdapter {presenter.showNews(it.id)}
         recyclerView = view.findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(activity!!)
         recyclerView.adapter = adapter
@@ -96,7 +85,6 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
 
     override fun showContent(list: List<NewsModel>) {
         adapter.setNewsList(list)
-        adapter.notifyDataSetChanged()
     }
 
     override fun addNews(newsModel: NewsModel) {

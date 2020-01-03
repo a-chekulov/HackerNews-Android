@@ -9,5 +9,5 @@ interface NewsListInteractor {
     fun getNewsById(id: Int): Single<NewsModel>
     fun updateRecentNewsIds(): Completable
 //    fun loadPage(page: Int): Single<List<NewsModel>>
-    fun loadPage(page: Int):Observable<NewsModel>
+    fun loadPage(page: Int): Observable<NewsModel>
 }

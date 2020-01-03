@@ -28,7 +28,7 @@
             android:id="@+id/iv_scope"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_thumb_up"
+            android:src="@drawable/ic_thumb_up_dark"
             android:layout_marginEnd="8dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"/>
@@ -58,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/count_default"
+            tools:text="7"
             android:layout_gravity="start"
             android:layout_toEndOf="@id/iv_comments"
             android:textColor="@color/colorPrimary"
@@ -71,14 +72,12 @@
             android:layout_centerVertical="true">
 
             <TextView
-                android:id="@+id/author"
+                android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_500"
                 tools:text="Mr. Author"
-                android:layout_gravity="end">
-
-            </TextView>
+                android:layout_gravity="end"/>
 
             <TextView
                 android:id="@+id/tv_time"
