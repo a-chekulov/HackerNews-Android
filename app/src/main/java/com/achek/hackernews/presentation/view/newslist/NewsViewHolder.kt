@@ -26,8 +26,8 @@ class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         time.text = Date(1000L * newsModel.time).dayMonthYearHourMinuteFormat()
         author.text = ("$authorPrefix ${newsModel.by}")
 
-        newsModel.kids?.let {
-            comments.text = newsModel.kids.size.toString()
-        }
+        comments.text = newsModel.kids?.let {
+           newsModel.kids.size.toString()
+        } ?: "0"
     }
 }

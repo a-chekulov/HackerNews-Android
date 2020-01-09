@@ -85,6 +85,7 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
 
     override fun showContent(list: List<NewsModel>) {
         adapter.setNewsList(list)
+        adapter.notifyDataSetChanged()
     }
 
     override fun addNews(newsModel: NewsModel) {
