@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +30,7 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
     private lateinit var adapter: NewsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var progress: ProgressBar
+    private lateinit var spinner: AppCompatSpinner
     private  var page = 1
 
     @Inject
@@ -54,8 +57,10 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar = view.findViewById(R.id.toolbar)
-        toolbar.title = getString(R.string.recent_news)
+        toolbar.title = null
         toolbar.setTitleTextColor(ContextCompat.getColor(activity!!, android.R.color.white))
+
+        initSpinner()
 
         progress = view.findViewById(R.id.progress)
 
@@ -77,6 +82,13 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
                 }
             }
         })
+    }
+
+    private fun initSpinner(){
+        spinner = toolbar.findViewById(R.id.action_bar_spinner)
+        val spAdapter = ArrayAdapter.createFromResource(activity!!, R.array.spinner_list, R.layout.spinner_item)
+        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = spAdapter
     }
 
     override fun showMessage(text: String) {

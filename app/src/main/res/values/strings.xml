@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">HackerNews</string>
-    <string name="recent_news">Recent News</string>
+
+    <string-array name="spinner_list">
+        <item>Recent Stories</item>
+        <item>Top Stories</item>
+        <item>Best Stories</item>
+        <item>Ask</item>
+        <item>Job</item>
+    </string-array>
+
+    <string name="poll">Poll</string>
+    <string name="poll_opt">Poll Option</string>
+
     <string name="news">News</string>
 
     <string name="author_prefix">by </string>

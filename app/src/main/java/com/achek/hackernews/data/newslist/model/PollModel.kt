@@ -3,7 +3,7 @@ package com.achek.hackernews.data.newslist.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class NewsModel (
+data class PollModel(
     @SerializedName("by")
     @Expose
     val by: String,
@@ -16,9 +16,15 @@ data class NewsModel (
     @SerializedName("kids")
     @Expose
     val kids: List<Int>?,
+    @SerializedName("parts")
+    @Expose
+    val parts: List<Int>?,
     @SerializedName("score")
     @Expose
     val score: Int,
+    @SerializedName("text")
+    @Expose
+    val text: String,
     @SerializedName("time")
     @Expose
     val time: Int,
@@ -27,8 +33,5 @@ data class NewsModel (
     val title: String,
     @SerializedName("type")
     @Expose
-    val type: String,
-    @SerializedName("url")
-    @Expose
-    val url: String?
+    val type: String
 )

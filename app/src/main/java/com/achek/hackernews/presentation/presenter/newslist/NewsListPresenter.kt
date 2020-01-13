@@ -1,11 +1,11 @@
 package com.achek.hackernews.presentation.presenter.newslist
 
 import com.achek.hackernews.data.common.SchedulersProvider
-import com.achek.hackernews.data.newslist.NewsRepo
 import com.achek.hackernews.domain.newslist.NewsListInteractor
 import com.achek.hackernews.presentation.view.news.NewsScreen
 import com.achek.hackernews.presentation.view.newslist.NewsListView
 import com.achek.hackernews.utils.plusAssign
+import com.achek.hackernews.utils.toStory
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.squareup.inject.assisted.AssistedInject
@@ -27,30 +27,30 @@ class NewsListPresenter @AssistedInject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        disposables += interactor.updateRecentNewsIds()
+        disposables += interactor.updateRecentStoriesIds()
             .observeOn(provider.ui())
             .subscribe({
                 loadNews()
-            },{err ->
+            }, { err ->
                 viewState.showMessage(err.toString())
             })
-
     }
 
-    fun loadNews(){
+    fun loadNews() {
         page++
         disposables += interactor.loadPage(page)
             .observeOn(provider.ui())
             .subscribe({
-                viewState.addNews(it)
-                items++
-                if (items == NewsRepo.PAGE_SIZE * (page + 1)) viewState.showProgress(false)
+                for (item in it) {
+                    if (item.type == "story") viewState.addNews(item.toStory())
+                }
+                viewState.showProgress(false)
             }, {
                 items++
             })
     }
 
-    fun showNews(id: Int){
+    fun showNews(id: Int) {
         cicerone.router.navigateTo(NewsScreen(id))
     }
 

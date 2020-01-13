@@ -5,6 +5,7 @@ import com.achek.hackernews.domain.news.CommentInteractor
 import com.achek.hackernews.domain.newslist.NewsListInteractor
 import com.achek.hackernews.presentation.view.news.NewsView
 import com.achek.hackernews.utils.plusAssign
+import com.achek.hackernews.utils.toStory
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.squareup.inject.assisted.Assisted
@@ -25,12 +26,13 @@ class NewsPresenter @AssistedInject constructor(
     private val disposables = CompositeDisposable()
 
     override fun onFirstViewAttach() {
-        disposables += newsInteractor.getNewsById(id)
+        disposables += newsInteractor.getItemById(id)
+            .filter{ it.type == "story"}
             .observeOn(provider.ui())
-            .subscribe({news ->
-                viewState.showMessage(news.kids?.size.toString())
-                viewState.showNewsInfo(news)
-                news.kids?.let { loadComment(it) }
+            .subscribe({it ->
+                val item = it.toStory()
+                viewState.showNewsInfo(item)
+                item.kids?.let { loadComment(it) }
             }, {
                 viewState.showMessage(it.toString())
             })

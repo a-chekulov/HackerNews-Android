@@ -1,7 +1,7 @@
 package com.achek.hackernews.data.newslist.network
 
+import com.achek.hackernews.data.common.model.Item
 import com.achek.hackernews.data.newslist.NewsDataSource
-import com.achek.hackernews.data.newslist.model.NewsModel
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Call
@@ -12,14 +12,13 @@ import retrofit2.Retrofit
 class NetworkNewsDataSource(retrofit: Retrofit): NewsDataSource{
 
     private val api = retrofit.create(RetrofitNewsApi::class.java)
-
-    override fun getNewsById(id: Int): Single<NewsModel> {
+    override fun getItemById(id: Int): Single<Item> {
         return Single.create {emitter ->
-            api.getNewsById(id).enqueue(object : Callback<NewsModel>{
-                override fun onFailure(call: Call<NewsModel>, t: Throwable) {
+            api.getItemById(id).enqueue(object : Callback<Item>{
+                override fun onFailure(call: Call<Item>, t: Throwable) {
                     emitter.onError(t)
                 }
-                override fun onResponse(call: Call<NewsModel>, response: Response<NewsModel>) {
+                override fun onResponse(call: Call<Item>, response: Response<Item>) {
                     if (response.code() == 200) {
                         emitter.onSuccess(response.body()!!)
                     }
@@ -30,7 +29,7 @@ class NetworkNewsDataSource(retrofit: Retrofit): NewsDataSource{
 
     override fun getRecentNewsIds(): Single<Array<Int>> {
         return Single.create {emitter ->
-            api.getNewsIds().enqueue(object : Callback<Array<Int>>{
+            api.getRecentStoriesIds().enqueue(object : Callback<Array<Int>>{
                 override fun onFailure(call: Call<Array<Int>>, t: Throwable) {
                     emitter.onError(t)
                 }
@@ -43,11 +42,86 @@ class NetworkNewsDataSource(retrofit: Retrofit): NewsDataSource{
         }
     }
 
-    override fun saveNewsIds(arr: Array<Int>): Completable {
+    override fun getTopNewsIds(): Single<Array<Int>> {
+        return Single.create {emitter ->
+            api.getTopStoriesIds().enqueue(object : Callback<Array<Int>>{
+                override fun onFailure(call: Call<Array<Int>>, t: Throwable) {
+                    emitter.onError(t)
+                }
+                override fun onResponse(call: Call<Array<Int>>, response: Response<Array<Int>>) {
+                    if (response.code() == 200) {
+                        emitter.onSuccess(response.body()!!)
+                    }
+                }
+            })
+        }
+    }
+
+    override fun getBestNewsIds(): Single<Array<Int>> {
+        return Single.create {emitter ->
+            api.getBestStoriesIds().enqueue(object : Callback<Array<Int>>{
+                override fun onFailure(call: Call<Array<Int>>, t: Throwable) {
+                    emitter.onError(t)
+                }
+                override fun onResponse(call: Call<Array<Int>>, response: Response<Array<Int>>) {
+                    if (response.code() == 200) {
+                        emitter.onSuccess(response.body()!!)
+                    }
+                }
+            })
+        }
+    }
+
+    override fun getAskStoriesIds(): Single<Array<Int>> {
+        return Single.create {emitter ->
+            api.getAskStoriesIds().enqueue(object : Callback<Array<Int>>{
+                override fun onFailure(call: Call<Array<Int>>, t: Throwable) {
+                    emitter.onError(t)
+                }
+                override fun onResponse(call: Call<Array<Int>>, response: Response<Array<Int>>) {
+                    if (response.code() == 200) {
+                        emitter.onSuccess(response.body()!!)
+                    }
+                }
+            })
+        }
+    }
+
+    override fun getShowStoriesIds(): Single<Array<Int>> {
+        return Single.create {emitter ->
+            api.getShowStoriesIds().enqueue(object : Callback<Array<Int>>{
+                override fun onFailure(call: Call<Array<Int>>, t: Throwable) {
+                    emitter.onError(t)
+                }
+                override fun onResponse(call: Call<Array<Int>>, response: Response<Array<Int>>) {
+                    if (response.code() == 200) {
+                        emitter.onSuccess(response.body()!!)
+                    }
+                }
+            })
+        }
+    }
+
+    override fun getJobStoriesIds(): Single<Array<Int>> {
+        return Single.create {emitter ->
+            api.getJobStoriesIds().enqueue(object : Callback<Array<Int>>{
+                override fun onFailure(call: Call<Array<Int>>, t: Throwable) {
+                    emitter.onError(t)
+                }
+                override fun onResponse(call: Call<Array<Int>>, response: Response<Array<Int>>) {
+                    if (response.code() == 200) {
+                        emitter.onSuccess(response.body()!!)
+                    }
+                }
+            })
+        }
+    }
+
+    override fun saveItemsIds(arr: Array<Int>): Completable {
         throw NotImplementedError()
     }
 
-    override fun getNewsIdsByPage(page: Int): Single<Array<Int>> {
+    override fun getItemsIdsByPage(page: Int): Single<Array<Int>> {
         throw NotImplementedError()
     }
 }

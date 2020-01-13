@@ -3,7 +3,7 @@ package com.achek.hackernews.data.newslist.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class NewsModel (
+data class AskModel(
     @SerializedName("by")
     @Expose
     val by: String,
@@ -19,6 +19,9 @@ data class NewsModel (
     @SerializedName("score")
     @Expose
     val score: Int,
+    @SerializedName("text")
+    @Expose
+    val text: String,
     @SerializedName("time")
     @Expose
     val time: Int,
