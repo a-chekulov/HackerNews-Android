@@ -9,8 +9,8 @@ interface NewsListInteractor {
     fun updateRecentStoriesIds(): Completable
     fun updateTopStoriesIds(): Completable
     fun updateBestStoriesIds(): Completable
-    fun updateAskStories(): Completable
-    fun updateJobStories(): Completable
+    fun updateAskStoriesIds(): Completable
+    fun updateJobStoriesIds(): Completable
 
     fun loadPage(page: Int): Single<List<Item>>
 }

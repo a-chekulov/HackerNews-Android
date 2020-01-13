@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.achek.hackernews.R
-import com.achek.hackernews.data.newslist.model.NewsModel
+import com.achek.hackernews.data.common.model.Item
 
 class NewsAdapter(
-    private val clickListener: (NewsModel) -> Unit
+    private val clickListener: (Item) -> Unit
 ): RecyclerView.Adapter<NewsViewHolder>() {
 
-    private  var list = mutableListOf<NewsModel>()
+    private  var list = mutableListOf<Item>()
+    private  var openModeNews: OpenModeNews? = null
 
-    fun setNewsList(items: List<NewsModel>){
+    fun setNewsList(items: List<Item>){
         list.clear()
         list.addAll(items)
         notifyDataSetChanged()
@@ -23,9 +24,20 @@ class NewsAdapter(
         notifyDataSetChanged()
     }
 
-    fun addItem(news: NewsModel){
+    fun setMode(openModeNews: OpenModeNews){
+        this.openModeNews = openModeNews
+    }
+
+    fun addItem(news: Item){
         list.add(news)
-        list.sortBy { - it.time } // munis use instead reverse
+        when (openModeNews){
+            OpenModeNews.RECENT ->  list.sortBy { - it.time } // munis use instead reverse
+//            OpenModeNews.BEST -> list.sortBy { - it.score!! }
+//            OpenModeNews.TOP -> list.sortBy { -it.score!! }
+//            OpenModeNews.ASK -> list.sortBy { -it.time }
+//            OpenModeNews.JOB -> list.sortBy { -it.time }
+        }
+
         notifyItemInserted(list.indexOf(news))
     }
 

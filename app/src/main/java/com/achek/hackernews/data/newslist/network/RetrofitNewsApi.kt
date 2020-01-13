@@ -18,10 +18,10 @@ interface RetrofitNewsApi {
     @GET("askstories.json")
     fun getAskStoriesIds(): Call<Array<Int>>
 
-    @GET("showstories")
+    @GET("showstories.json")
     fun getShowStoriesIds(): Call<Array<Int>>
 
-    @GET("jobstories")
+    @GET("jobstories.json")
     fun getJobStoriesIds(): Call<Array<Int>>
 
     @GET("item/{item}.json")

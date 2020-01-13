@@ -27,11 +27,11 @@ class NewsListInteractorImpl(
         return repo.loadBestNewsIds().observeOn(scheduler.io())
     }
 
-    override fun updateAskStories(): Completable {
+    override fun updateAskStoriesIds(): Completable {
         return repo.loadAskStoriesIds().observeOn(scheduler.io())
     }
 
-    override fun updateJobStories(): Completable {
+    override fun updateJobStoriesIds(): Completable {
         return repo.loadJobStoriesIds().observeOn(scheduler.io())
     }
 
