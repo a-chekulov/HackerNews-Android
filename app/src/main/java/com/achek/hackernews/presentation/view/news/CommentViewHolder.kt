@@ -2,6 +2,7 @@ package com.achek.hackernews.presentation.view.news
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.achek.hackernews.R
 import com.achek.hackernews.data.comment.model.CommentModel
@@ -16,6 +17,6 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(commentModel: CommentModel) {
         author.text = commentModel.by
         time.text = Date(1000L * commentModel.time).dayMonthYearHourMinuteFormat()
-        comments.text = commentModel.text
+        comments.text = HtmlCompat.fromHtml(commentModel.text, 0).toString()
     }
 }
