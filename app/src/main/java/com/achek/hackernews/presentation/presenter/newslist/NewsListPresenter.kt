@@ -26,6 +26,7 @@ class NewsListPresenter @AssistedInject constructor(
     private var items: Int = 0
 
     override fun onFirstViewAttach() {
+        viewState.isRefreshing(true)
         super.onFirstViewAttach()
         disposables += interactor.updateRecentStoriesIds()
             .observeOn(provider.ui())
@@ -45,6 +46,7 @@ class NewsListPresenter @AssistedInject constructor(
                     if (item.type == "story") viewState.addNews(item.toStory())
                 }
                 viewState.showProgress(false)
+                viewState.isRefreshing(false)
             }, {
                 items++
             })
@@ -52,6 +54,19 @@ class NewsListPresenter @AssistedInject constructor(
 
     fun showNews(id: Int) {
         cicerone.router.navigateTo(NewsScreen(id))
+    }
+
+    fun refresh(){
+        page = -1
+        items = 0
+        disposables += interactor.updateRecentStoriesIds()
+            .observeOn(provider.ui())
+            .subscribe({
+                viewState.isRefreshing(false)
+                loadNews()
+            }, { err ->
+                viewState.showMessage(err.toString())
+            })
     }
 
     @AssistedInject.Factory

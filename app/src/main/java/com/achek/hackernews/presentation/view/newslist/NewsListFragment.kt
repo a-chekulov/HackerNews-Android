@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.achek.hackernews.R
 import com.achek.hackernews.data.newslist.NewsRepo
 import com.achek.hackernews.data.newslist.model.NewsModel
@@ -31,6 +32,7 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
     private lateinit var recyclerView: RecyclerView
     private lateinit var progress: ProgressBar
     private lateinit var spinner: AppCompatSpinner
+    private lateinit var refresh: SwipeRefreshLayout
     private  var page = 1
 
     @Inject
@@ -62,13 +64,19 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
 
         initSpinner()
 
+        refresh = view.findViewById(R.id.refresh_layout)
+
+        refresh.setOnRefreshListener {
+            adapter.clearItems()
+            page = 1
+            presenter.refresh()
+        }
         progress = view.findViewById(R.id.progress)
 
         adapter = NewsAdapter {presenter.showNews(it.id)}
         recyclerView = view.findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(activity!!)
         recyclerView.adapter = adapter
-
 
         recyclerView.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -107,5 +115,9 @@ class NewsListFragment : MvpAppCompatFragment(), NewsListView {
     override fun showProgress(showing: Boolean) {
         if (showing) progress.visibility = View.VISIBLE
         else progress.visibility = View.GONE
+    }
+
+    override fun isRefreshing(show: Boolean) {
+        refresh.isRefreshing = show
     }
 }

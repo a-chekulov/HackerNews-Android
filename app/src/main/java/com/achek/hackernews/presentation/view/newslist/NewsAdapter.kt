@@ -18,6 +18,11 @@ class NewsAdapter(
         notifyDataSetChanged()
     }
 
+    fun clearItems(){
+        list.clear()
+        notifyDataSetChanged()
+    }
+
     fun addItem(news: NewsModel){
         list.add(news)
         list.sortBy { - it.time } // munis use instead reverse

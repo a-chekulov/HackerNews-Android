@@ -8,4 +8,5 @@ interface NewsListView: MvpView {
     fun showContent(list: List<NewsModel>)
     fun addNews(newsModel: NewsModel)
     fun showProgress(showing: Boolean)
+    fun isRefreshing(show: Boolean)
 }
