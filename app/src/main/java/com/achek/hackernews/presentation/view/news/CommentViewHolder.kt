@@ -14,9 +14,22 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val time = itemView.findViewById<TextView>(R.id.tv_time)
     private val comments = itemView.findViewById<TextView>(R.id.tv_comment)
 
+    // Отступы для вложенных комментариев
+    private val comment2 = itemView.findViewById<View>(R.id.comment2)
+    private val comment3 = itemView.findViewById<View>(R.id.comment3)
+
     fun bind(commentModel: CommentModel) {
         author.text = commentModel.by
         time.text = Date(1000L * commentModel.time).dayMonthYearHourMinuteFormat()
-        comments.text = HtmlCompat.fromHtml(commentModel.text, 0).toString()
+        comments.text = HtmlCompat.fromHtml(commentModel.text!!, 0).toString()
+
+//        if (commentModel.parent == tree?.key) {
+//            comment2.visibility = View.GONE
+//            comment3.visibility = View.GONE
+//        }
+//        else {
+//            comment2.visibility = View.VISIBLE
+//        }
+
     }
 }

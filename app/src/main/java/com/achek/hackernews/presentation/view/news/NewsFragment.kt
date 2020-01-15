@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.achek.hackernews.R
 import com.achek.hackernews.data.comment.model.CommentModel
-import com.achek.hackernews.data.newslist.model.NewsModel
+import com.achek.hackernews.data.common.model.Item
 import com.achek.hackernews.presentation.presenter.news.NewsPresenter
 import com.achek.hackernews.presentation.view.NewsApp
 import com.achek.hackernews.utils.dayMonthYearHourMinuteFormat
@@ -60,19 +60,22 @@ class NewsFragment: MvpAppCompatFragment(), NewsView {
         author = view.findViewById(R.id.tv_author)
         time = view.findViewById(R.id.tv_time)
 
-        adapter = CommentsAdapter {  }
+
+
         recyclerView = view.findViewById(R.id.recycler_comment)
         recyclerView.layoutManager = LinearLayoutManager(activity!!)
-        recyclerView.adapter = adapter
 
         return view
     }
 
-    override fun showNewsInfo(newsModel: NewsModel) {
-        titleNews.text = newsModel.title
-        score.text = newsModel.score.toString()
-        author.text = newsModel.by
-        time.text = Date(1000L * newsModel.time).dayMonthYearHourMinuteFormat()
+    override fun showNewsInfo(item: Item) {
+        adapter = CommentsAdapter({}, item)
+        recyclerView.adapter = adapter
+
+        titleNews.text = item.title
+        score.text = item.score.toString()
+        author.text = item.by
+        time.text = Date(1000L * item.time).dayMonthYearHourMinuteFormat()
     }
 
     override fun showMessage(text: String) {
@@ -80,7 +83,7 @@ class NewsFragment: MvpAppCompatFragment(), NewsView {
     }
 
     override fun addComment(commentModel: CommentModel) {
-        adapter.addItem(commentModel)
+        commentModel.text?.let { adapter.addItem(commentModel)}
     }
 
     companion object {

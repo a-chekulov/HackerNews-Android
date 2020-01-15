@@ -5,19 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/comment2"
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/divider"
+        android:background="@color/colorPrimary"
+        android:layout_marginStart="16dp"
+        android:visibility="gone"/>
+    <View
+        android:id="@+id/comment3"
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/divider"
+        android:background="@color/colorPrimary"
+        android:layout_toEndOf="@id/comment2"
+        android:layout_marginStart="4dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/iv_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_person"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/comment3"/>
 
     <TextView
         android:id="@+id/tv_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Ronald"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/colorPrimary"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:drawableStart="@drawable/ic_person"
-        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/iv_person"
         android:layout_alignParentTop="true"/>
 
     <TextView
@@ -25,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="30 Dec 2019, 12:30"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"/>
@@ -42,10 +66,11 @@
         android:layout_marginTop="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-
+    android:layout_toEndOf="@id/comment3"
         android:layout_below="@id/tv_author"/>
 
     <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray_300"

@@ -5,7 +5,6 @@ import com.achek.hackernews.domain.news.CommentInteractor
 import com.achek.hackernews.domain.newslist.NewsListInteractor
 import com.achek.hackernews.presentation.view.news.NewsView
 import com.achek.hackernews.utils.plusAssign
-import com.achek.hackernews.utils.toStory
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.squareup.inject.assisted.Assisted
@@ -30,7 +29,7 @@ class NewsPresenter @AssistedInject constructor(
             .filter{ it.type == "story"}
             .observeOn(provider.ui())
             .subscribe({it ->
-                val item = it.toStory()
+                val item = it
                 viewState.showNewsInfo(item)
                 item.kids?.let { loadComment(it) }
             }, {
@@ -43,8 +42,9 @@ class NewsPresenter @AssistedInject constructor(
         for (commentId in commentsIds) {
             disposables += commentInteractor.getCommentById(commentId)
                 .observeOn(provider.ui())
-                .subscribe({
-                    viewState.addComment(it)
+                .subscribe({commentModel ->
+                    viewState.addComment(commentModel)
+                    commentModel.kids?.let { loadComment(it) }
                 }, {
                     viewState.showMessage(it.toString())
                 })

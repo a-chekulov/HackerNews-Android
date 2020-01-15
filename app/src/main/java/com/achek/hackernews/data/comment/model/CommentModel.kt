@@ -18,7 +18,7 @@ data class CommentModel(
     val parent: Int,
     @SerializedName("text")
     @Expose
-    val text: String,
+    val text: String?,
     @SerializedName("time")
     @Expose
     val time: Int,

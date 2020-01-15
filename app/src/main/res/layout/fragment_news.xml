@@ -22,7 +22,7 @@
         android:layout_below="@id/toolbar"
         android:id="@+id/news_container"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:background="@color/colorPrimary">
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             tools:text="Новость#127798"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
