@@ -10,19 +10,20 @@ import com.achek.hackernews.data.comment.model.CommentTreeParentModel
 import com.achek.hackernews.data.common.model.Item
 
 class CommentsAdapter(
-    private val clickListener: (CommentModel) -> Unit,
+    private val clickListener: (CommentTreeModel) -> Unit,
     private val parent: Item
 ): RecyclerView.Adapter<CommentViewHolder>() {
 
-    private  var list = mutableListOf<CommentModel>()
+//    private  var list = mutableListOf<CommentModel>()
     private  var tree =  CommentTreeParentModel(parent)
-
+    private  var listByTree = mutableListOf<CommentTreeModel>()
 
     fun addItem(comment: CommentModel){
-        list.add(comment)
+//        list.add(comment)
         tree.addCommentTreeModel(CommentTreeModel(comment))
-        list.sortBy { - it.time } // munis use instead reverse
-        notifyItemInserted(list.indexOf(comment))
+        listByTree = tree.getList()
+//        list.sortBy { - it.time } // munis use instead reverse
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
@@ -31,13 +32,13 @@ class CommentsAdapter(
 
     }
     override fun getItemCount(): Int {
-        return list.size
+        return listByTree.size
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(listByTree[position])
         holder.itemView.setOnClickListener { view ->
-            clickListener.invoke(list[position])
+            clickListener.invoke(listByTree[position])
         }
     }
 

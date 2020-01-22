@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.achek.hackernews.R
-import com.achek.hackernews.data.comment.model.CommentModel
+import com.achek.hackernews.data.comment.model.CommentTreeModel
 import com.achek.hackernews.utils.dayMonthYearHourMinuteFormat
 import java.sql.Date
 
@@ -18,18 +18,25 @@ class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val comment2 = itemView.findViewById<View>(R.id.comment2)
     private val comment3 = itemView.findViewById<View>(R.id.comment3)
 
-    fun bind(commentModel: CommentModel) {
-        author.text = commentModel.by
-        time.text = Date(1000L * commentModel.time).dayMonthYearHourMinuteFormat()
-        comments.text = HtmlCompat.fromHtml(commentModel.text!!, 0).toString()
+    fun bind(commentTreeModel: CommentTreeModel) {
+        author.text = commentTreeModel.commentModel.by
+        time.text = Date(1000L * commentTreeModel.commentModel.time).dayMonthYearHourMinuteFormat()
+        comments.text = HtmlCompat.fromHtml(commentTreeModel.commentModel.text!!, 0).toString().replace("\n", "")
 
-//        if (commentModel.parent == tree?.key) {
-//            comment2.visibility = View.GONE
-//            comment3.visibility = View.GONE
-//        }
-//        else {
-//            comment2.visibility = View.VISIBLE
-//        }
+        when (commentTreeModel.lvl) {
+            1 -> {
+                comment2.visibility = View.GONE
+                comment3.visibility = View.GONE
+            }
+            2 -> {
+                comment2.visibility = View.VISIBLE
+                comment3.visibility = View.GONE
+            }
+            else -> {
+                comment2.visibility = View.VISIBLE
+                comment3.visibility = View.VISIBLE
+            }
+        }
 
     }
 }
