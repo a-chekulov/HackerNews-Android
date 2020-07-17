@@ -1,5 +1,7 @@
 package com.achek.hackernews.presentation.view.news
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -65,6 +67,7 @@ class NewsFragment: MvpAppCompatFragment(), NewsView {
         recyclerView = view.findViewById(R.id.recycler_comment)
         recyclerView.layoutManager = LinearLayoutManager(activity!!)
 
+
         return view
     }
 
@@ -73,6 +76,12 @@ class NewsFragment: MvpAppCompatFragment(), NewsView {
         recyclerView.adapter = adapter
 
         titleNews.text = item.title
+        titleNews.setOnClickListener {
+            if (item.url != null && item.url.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
+                startActivity(intent);
+            }
+        }
         score.text = item.score.toString()
         author.text = item.by
         time.text = Date(1000L * item.time).dayMonthYearHourMinuteFormat()
